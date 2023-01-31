@@ -9,9 +9,9 @@ public class FileOperation {
      * @param x 假名字符
      * @return 罗马字
      */
-    public static String getRomajiValue(String x) throws IOException {
-        String jsonRomaji, mainValue, romajiValue, krKey, trueValue = null;
-        int i;
+    public static List<String> getRomajiValue(List<String> x) throws IOException {
+        String jsonRomaji, mainValue, romajiValue, krKey;
+        int i, index;
         i = 0;
         jsonRomaji = "Romaji";
         mainValue = "main";
@@ -20,21 +20,18 @@ public class FileOperation {
         List<String> kato = DataReading.mainJsonReading(jsonRomaji, krKey, mainValue);
         List<String> romaji = DataReading.mainJsonReading(jsonRomaji, krKey, romajiValue);
 
-        if (isJP(x) || x.equals("ー")){
-            for (; i < (kato.size() - 1); i++) {
-                if (x.equals(kato.get(i))) {
-                    break;
-                } else {
-                    i++;
+            for (int a = 0; i < x.size() - 1; a++){
+                StringBuilder sb = new StringBuilder(x.get(a));
+                    for (; i < (kato.size() - 1); i++) {
+
+                        index = (kato.get(i)).indexOf(x.get(a));
+                        if (index != -1){
+                            sb.replace(index, index + 1, romaji.get(i) + " ");
+                    }
                 }
-            }
-            trueValue = romaji.get(i) + " ";
-        }else {
-            trueValue = x;
+                    x.set(a, String.valueOf(sb));
         }
-
-
-        return trueValue;
+        return x;
     }
 
     /**

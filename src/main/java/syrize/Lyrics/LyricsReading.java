@@ -42,28 +42,16 @@ public class LyricsReading {
 
     /**
      * 该方法用于遍历歌词List将其转为其他形式
-     * @param Lrc
+     * @param
      * @throws IOException
      */
-    public static void lrcTraversal(List<String> Lrc, String Type) throws IOException {
-        int size = Lrc.size();
-        String x;
-        while (size > 0){
-            x = Lrc.get(size - 1);
-            StringBuffer sb = new StringBuffer();
-            char[] chars = x.toCharArray();
-            for (char i:chars){
-                if (Objects.equals(Type, "Romaji")){
-                    String replacementValue = FileOperation.getRomajiValue(String.valueOf(i));
-                    sb.append(replacementValue);
-                }else if (Objects.equals(Type, "Homo")){
-                    String replacementValue = FileOperation.getHomophonicValue(String.valueOf(i));
-                    sb.append(replacementValue);
+    public static List<String> lrcTraversal(List<String> Lrc, String Type) throws IOException {
+        List<String> replacementValue = null;
+                if (Objects.equals(Type, "Romaji")) {
+                    replacementValue = FileOperation.getRomajiValue(Lrc);
+                } else if (Objects.equals(Type, "Homo")) {
                 }
-            }
-            Lrc.set(size - 1, String.valueOf(sb));
-            size--;
-        }
+            return replacementValue;
     }
 
     public static void main(String[] args) throws IOException {
@@ -72,8 +60,7 @@ public class LyricsReading {
         String lrcPath = scan.nextLine();
         List<String> lrcLineStream = lrcLine(lrcPath);
         KanaConversion.literator(lrcLineStream);
-        lrcTraversal(lrcLineStream, "Romaji");
-        System.out.println(lrcLineStream.get(15));
+        List<String> Lrc = lrcTraversal(lrcLineStream, "Romaji");
+        System.out.println(Lrc.get(15));
     }
-
 }
