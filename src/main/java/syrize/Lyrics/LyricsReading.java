@@ -9,7 +9,18 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author Syrize
+ */
 public class LyricsReading {
+    static String TYPE_R = "Romaji";
+    static String TYPE_H = "Homo";
+
+    static String regex = "\\[\\d{2}:\\d{2}\\.\\d{2}\\](?![\\u4e00-\\u9fa5|A-Za-z]+\\s*[.:：/／-]).*";
+
+    private static final Pattern PATTERN_LYRIC = Pattern.compile(regex);
+
+
     public static List<String> lrcLine(String path) throws IOException {
         File lrc = new File(path);
         List<String> lineTraversal = new ArrayList<>();
@@ -21,10 +32,9 @@ public class LyricsReading {
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream(lrc), "GBK"));
                 String line;
 
-                Pattern pattern = Pattern.compile("\\[\\d{2}:\\d{2}\\.\\d{2}\\](?![\\u4e00-\\u9fa5|A-Za-z]+\\s*[.:：/／-]).*");
 
                 while ((line = reader.readLine()) != null){
-                    Matcher matcher = pattern.matcher(line);
+                    Matcher matcher = PATTERN_LYRIC.matcher(line);
                     if (matcher.find()) {
                             lineTraversal.add(line);
                     }
@@ -47,9 +57,9 @@ public class LyricsReading {
      */
     public static List<String> lrcTraversal(List<String> Lrc, String Type) throws IOException {
         List<String> replacementValue = null;
-                if (Objects.equals(Type, "Romaji")) {
+                if (Objects.equals(Type, TYPE_R)) {
                     replacementValue = FileOperation.getRomajiValue(Lrc);
-                } else if (Objects.equals(Type, "Homo")) {
+                } else if (Objects.equals(Type, TYPE_H)) {
                 }
             return replacementValue;
     }
@@ -60,7 +70,7 @@ public class LyricsReading {
         String lrcPath = scan.nextLine();
         List<String> lrcLineStream = lrcLine(lrcPath);
         KanaConversion.literator(lrcLineStream);
-        List<String> Lrc = lrcTraversal(lrcLineStream, "Romaji");
+        List<String> Lrc = lrcTraversal(lrcLineStream, TYPE_R);
         System.out.println(Lrc.get(15));
     }
 }

@@ -3,15 +3,18 @@ package syrize.Lyrics;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author Syrize
+ */
 public class FileOperation {
+    static String jsonRomaji, mainValue, romajiValue, krKey, jsonHomophonic, HomoValue, rhKey, trueValue;
+    static int i, index;
     /**
      * 该方法接收一个字符将其转换为罗马音形式
      * @param x 假名字符
      * @return 罗马字
      */
     public static List<String> getRomajiValue(List<String> x) throws IOException {
-        String jsonRomaji, mainValue, romajiValue, krKey;
-        int i, index;
         i = 0;
         jsonRomaji = "Romaji";
         mainValue = "main";
@@ -40,8 +43,6 @@ public class FileOperation {
      * @return 谐音
      */
     public static String getHomophonicValue(String x) throws IOException {
-        String jsonHomophonic, HomoValue, mainValue, rhKey, trueValue;
-        int i;
         i = 0;
         jsonHomophonic = "Homophonic";
         HomoValue = "Homo";
@@ -50,7 +51,7 @@ public class FileOperation {
         List<String> homophonic = DataReading.mainJsonReading(jsonHomophonic, rhKey, HomoValue);
         List<String> main = DataReading.mainJsonReading(jsonHomophonic, rhKey, mainValue);
 
-        if (isJP(x) || x.equals("ー")){
+        if (isJP(x)){
             for (; i < (main.size() - 1); i++) {
                 if (x.equals(main.get(i))) {
                     break;

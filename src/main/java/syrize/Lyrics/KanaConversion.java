@@ -5,12 +5,13 @@ import com.atilika.kuromoji.ipadic.Token;
 import com.atilika.kuromoji.ipadic.Tokenizer;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
+/**
+ * @author Syrize
+ */
 public class KanaConversion {
     /**
      *
-     * @param Lrc
      */
     public static void literator(List<String> Lrc){
 

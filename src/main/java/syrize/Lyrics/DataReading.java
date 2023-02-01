@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author Syrize
+ */
 public class DataReading {
     /**
      * @param JsonName  Json文件名
