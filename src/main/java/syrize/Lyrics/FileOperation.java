@@ -4,17 +4,35 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * 文件操作
+ *
  * @author Syrize
+ * &#064;date  2023/02/01
  */
 public class FileOperation {
-    static String jsonRomaji, mainValue, romajiValue, krKey, jsonHomophonic, HomoValue, rhKey, trueValue;
-    static int i, index;
+    static String
+            jsonRomaji,
+            mainValue,
+            romajiValue,
+            krKey,
+            jsonHomophonic,
+            HomoValue,
+            rhKey,
+            trueValue;
+    static int
+            i,
+            index;
+
     /**
+     * 获取罗马字值
      * 该方法接收一个字符将其转换为罗马音形式
+     *
      * @param x 假名字符
      * @return 罗马字
+     * @throws IOException ioexception
      */
     public static List<String> getRomajiValue(List<String> x) throws IOException {
+
         i = 0;
         jsonRomaji = "Romaji";
         mainValue = "main";
@@ -38,11 +56,15 @@ public class FileOperation {
     }
 
     /**
+     * 获得谐音值
      * 该方法接收一个字符将其转换为谐音形式
+     *
      * @param x 罗马字字符
      * @return 谐音
+     * @throws IOException ioexception
      */
     public static String getHomophonicValue(String x) throws IOException {
+
         i = 0;
         jsonHomophonic = "Homophonic";
         HomoValue = "Homo";
@@ -67,6 +89,13 @@ public class FileOperation {
         return trueValue;
     }
 
+    /**
+     * 是否为日文
+     * 该方法用于判断字符串是否为日文字符
+     *
+     * @param x 需要判断的字符串
+     * @return 布尔值
+     */
     public static boolean isJP(String x) {
         Character.UnicodeScript script = Character.UnicodeScript.of(x.charAt(0));
         return script == Character.UnicodeScript.HIRAGANA || script == Character.UnicodeScript.KATAKANA || script == Character.UnicodeScript.HAN;

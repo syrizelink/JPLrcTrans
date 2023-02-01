@@ -7,11 +7,17 @@ import com.atilika.kuromoji.ipadic.Tokenizer;
 import java.util.List;
 
 /**
+ * 假名转换
+ *
  * @author Syrize
+ * &#064;date  2023/02/01
  */
 public class KanaConversion {
     /**
+     * 假名转换
+     * 该方法用于将日文歌词统一转换为平假名
      *
+     * @param Lrc 输入的歌词List
      */
     public static void literator(List<String> Lrc){
 

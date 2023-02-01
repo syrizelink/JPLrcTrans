@@ -14,14 +14,20 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * 数据读取
+ *
  * @author Syrize
+ * &#064;date  2023/02/01
  */
 public class DataReading {
     /**
+     * json读取
+     *
      * @param JsonName  Json文件名
      * @param KeyName   Json文件主Key值
      * @param ValueName Json文件获取的Value值
      * @return 返回一个选定Value集合的List
+     * @throws IOException ioexception
      */
     public static List<String> mainJsonReading(String JsonName, String KeyName, String ValueName) throws IOException {
         JsonName += ".json";
