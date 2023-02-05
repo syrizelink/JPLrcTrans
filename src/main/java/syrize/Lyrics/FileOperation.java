@@ -18,14 +18,19 @@ public class FileOperation {
             jsonHomophonic,
             HomoValue,
             rhKey,
+            lyricString,
+            doubleChara,
             trueValue;
     static int
             i,
             index;
+    static char
+            doubleChara1,
+            doubleChara2;
 
     /**
      * 获取罗马字值
-     * 该方法接收一个字符将其转换为罗马音形式
+     * 该方法接收一个歌词List将其转换为罗马音形式
      *
      * @param x 假名字符
      * @return 罗马字
@@ -41,16 +46,20 @@ public class FileOperation {
         List<String> kato = DataReading.mainJsonReading(jsonRomaji, krKey, mainValue);
         List<String> romaji = DataReading.mainJsonReading(jsonRomaji, krKey, romajiValue);
 
-            for (int a = 0; i < x.size() - 1; a++){
-                StringBuilder sb = new StringBuilder(x.get(a));
-                    for (; i < (kato.size() - 1); i++) {
-
-                        index = (kato.get(i)).indexOf(x.get(a));
-                        if (index != -1){
-                            sb.replace(index, index + 1, romaji.get(i) + " ");
+        for (int a = 0; i < x.size() - 1; a++){
+            StringBuilder sb = new StringBuilder(x.get(a));
+            for (; i < (kato.size() - 1); i++){
+                lyricString = x.get(a);
+                for (int n = 0; n < lyricString.length() - 1; n++){
+                    doubleChara1 = lyricString.charAt(n);
+                    doubleChara2 = lyricString.charAt(n + 1);
+                    doubleChara = String.valueOf(doubleChara1) + doubleChara2;
+                    if (doubleChara.equals(kato.get(i))){
+                        sb.replace(n, n + 2, romaji.get(i) + " ");
                     }
                 }
-                    x.set(a, String.valueOf(sb));
+            }
+            x.set(a, String.valueOf(sb));
         }
         return x;
     }

@@ -83,10 +83,11 @@ public class LyricsReading {
      * @throws IOException ioexception
      */
     public static void main(String[] args) throws IOException {
-        Scanner scan = new Scanner(System.in, StandardCharsets.UTF_8);
-        System.out.println("输入文件绝对路径 或 拖放文件至此处");
-        String lrcPath = scan.nextLine();
-        List<String> lrcLineStream = lrcLine(lrcPath);
+//        Scanner scan = new Scanner(System.in, StandardCharsets.UTF_8);
+//        System.out.println("输入文件绝对路径 或 拖放文件至此处");
+//        String lrcPath = scan.nextLine();
+//        List<String> lrcLineStream = lrcLine(lrcPath);
+        List<String> lrcLineStream = lrcLine("D:\\Music\\收录音乐\\专辑\\YOASOBI (ヨアソビ)\\THE BOOK\\06 群青_EM.lrc");
         KanaConversion.literator(lrcLineStream);
         List<String> Lrc = lrcTraversal(lrcLineStream, TYPE_R);
         System.out.println(Lrc.get(15));
