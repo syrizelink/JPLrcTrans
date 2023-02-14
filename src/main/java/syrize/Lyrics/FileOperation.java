@@ -49,20 +49,8 @@ public class FileOperation {
         List<String> kato = DataReading.mainJsonReading(jsonRomaji, krKey, mainValue);//将假名数据生成为列表
         List<String> romaji = DataReading.mainJsonReading(jsonRomaji, krKey, romajiValue);//将罗马字数据生成为列表
 
-        for (int a = 0; i < x.size() - 1; a++){
-            StringBuilder sb = new StringBuilder(x.get(a));
-            for (; i < (kato.size() - 1); i++){
-                lyricString = x.get(a);
-                for (int n = 0; n < lyricString.length() - 1; n++){
-                    doubleChara1 = lyricString.charAt(n);
-                    doubleChara2 = lyricString.charAt(n + 1);
-                    doubleChara = String.valueOf(doubleChara1) + doubleChara2;
-                    if (doubleChara.equals(kato.get(i))){
-                        sb.replace(n, n + 2, romaji.get(i) + " ");
-                    }
-                }
-            }
-            x.set(a, String.valueOf(sb));
+        for (int a = 0; a < x.size(); a++){
+            x.set(a, matchCharacter(x.get(a)));
         }
         return x;
     }
@@ -73,6 +61,7 @@ public class FileOperation {
      * @return 替换完成后的歌词行
      */
     private static @NotNull String matchCharacter(String x) throws IOException {
+        int indexD = 0, indexS = 0;
         jsonRomaji = "Romaji";
         mainValue = "main";
         romajiValue = "Romaji";
@@ -80,36 +69,48 @@ public class FileOperation {
         List<String> kato = DataReading.mainJsonReading(jsonRomaji, krKey, mainValue);//将假名数据生成为列表
         List<String> romaji = DataReading.mainJsonReading(jsonRomaji, krKey, romajiValue);//将罗马字数据生成为列表
         StringBuilder sb = new StringBuilder(x);
-        i = 0;
 
-        for (; i < x.length() - 3; i++){
-            doubleChara = x.substring(i, i + 2);
+        for (int subD = 0; subD < x.length() - 3; subD++){
+            if (subD == x.length() - 3){
+                break;
+            }
+            doubleChara = x.substring(subD, subD + 2);
             trueValue = charaLocReplace(doubleChara, kato, romaji);
-            sb.replace(i, i + 2, trueValue);
+            sb.delete(indexD, indexD + 2);
+            sb.insert(indexD, trueValue);
+            if (trueValue.equals(doubleChara)){
+                indexD += 1;
+            }else {
+                indexD += trueValue.length();
+            }
         }
 
-        i = 0;
 
-        for (; i < x.length() - 1; i++){
-            singleValue = x.substring(i, i + 1);
+        for (int subS = 0; subS < x.length(); subS++){
+            singleValue = x.substring(subS, subS + 1);
             trueValue = charaLocReplace(singleValue, kato, romaji);
-            sb.replace(i, i + 1, trueValue);
+            sb.delete(indexS, indexS + 1);
+            sb.insert(indexS, trueValue);
+            if (trueValue.equals(doubleChara)){
+                indexS += 1;
+            }else {
+                indexS += trueValue.length();
+            }
         }
 
         return sb.toString();
     }
 
     /**
-     * 该方法用于在匹配替换给定双字符
-     * @param x 要进行操作的双字符
+     * 该方法用于在匹配替换给定字符
+     * @param x 要进行操作的字符
      * @param matchList 比对匹配列表
-     * @return 替换完成的歌词行
+     * @return 替换完成的字符
      */
     private static String charaLocReplace(String x, @NotNull List<String> matchList, List<String> searchList){
         i = 0;
         for (; i < matchList.size(); i++){
-            String listValue = matchList.get(i);
-            if (listValue.equals(x)){
+            if (matchList.get(i).equals(x)){
                 x = searchList.get(i);
             }
         }
