@@ -1,5 +1,7 @@
 package syrize.Lyrics;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -28,7 +30,7 @@ public class LyricsReading {
      * @return 歌词List
      * @throws IOException ioexception
      */
-    public static List<String> lrcLine(String path) throws IOException {
+    public static @NotNull List<String> lrcLine(String path) throws IOException {
         File lrc = new File(path);
         List<String> lineTraversal = new ArrayList<>();
 
@@ -71,7 +73,7 @@ public class LyricsReading {
                 if (Objects.equals(Type, TYPE_R)) {
                     replacementValue = FileOperation.getRomajiValue(Lrc);
                 } else if (Objects.equals(Type, TYPE_H)) {
-                    replacementValue = Collections.singletonList(FileOperation.getHomophonicValue(String.valueOf(Lrc)));
+                    replacementValue = FileOperation.getHomophonicValue(Lrc);
                 }
             return replacementValue;
     }
@@ -83,13 +85,12 @@ public class LyricsReading {
      * @throws IOException ioexception
      */
     public static void main(String[] args) throws IOException {
-//        Scanner scan = new Scanner(System.in, StandardCharsets.UTF_8);
-//        System.out.println("输入文件绝对路径 或 拖放文件至此处");
-//        String lrcPath = scan.nextLine();
-//        List<String> lrcLineStream = lrcLine(lrcPath);
-        List<String> lrcLineStream = lrcLine("D:\\Music\\收录音乐\\专辑\\YOASOBI (ヨアソビ)\\THE BOOK\\06 群青_EM.lrc");
+        Scanner scan = new Scanner(System.in, StandardCharsets.UTF_8);
+        System.out.println("输入文件绝对路径 或 拖放文件至此处");
+        String lrcPath = scan.nextLine();
+        List<String> lrcLineStream = lrcLine(lrcPath);
         KanaConversion.literator(lrcLineStream);
-        List<String> Lrc = lrcTraversal(lrcLineStream, TYPE_R);
+        List<String> Lrc = lrcTraversal(lrcLineStream, TYPE_H);
         System.out.println(Lrc.get(15));
     }
 }

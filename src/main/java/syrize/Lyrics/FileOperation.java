@@ -3,7 +3,9 @@ package syrize.Lyrics;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 文件操作
@@ -20,16 +22,11 @@ public class FileOperation {
             jsonHomophonic,
             HomoValue,
             rhKey,
-            lyricString,
             singleValue,
             doubleChara,
             trueValue;
     static int
-            i,
-            index;
-    static char
-            doubleChara1,
-            doubleChara2;
+            i;
 
     /**
      * 获取罗马字值
@@ -41,17 +38,27 @@ public class FileOperation {
      */
     public static List<String> getRomajiValue(@NotNull List<String> x) throws IOException {
 
-        i = 0;
-        jsonRomaji = "Romaji";
-        mainValue = "main";
-        romajiValue = "Romaji";
-        krKey = "KtoR";
-        List<String> kato = DataReading.mainJsonReading(jsonRomaji, krKey, mainValue);//将假名数据生成为列表
-        List<String> romaji = DataReading.mainJsonReading(jsonRomaji, krKey, romajiValue);//将罗马字数据生成为列表
+        for (int a = 0; a < x.size(); a++){
+            x.set(a, matchCharacter(x.get(a), "Romaji"));
+        }
+        return x;
+    }
+
+
+    /**
+     * 获得谐音值
+     * 该方法接收一个字符将其转换为谐音形式
+     *
+     * @param x 罗马字字符
+     * @return 谐音
+     * @throws IOException ioexception
+     */
+    public static List<String> getHomophonicValue(@NotNull List<String> x) throws IOException {
 
         for (int a = 0; a < x.size(); a++){
-            x.set(a, matchCharacter(x.get(a)));
+            x.set(a, matchCharacter(x.get(a), "Homo"));
         }
+
         return x;
     }
 
@@ -60,22 +67,37 @@ public class FileOperation {
      * @param x 要进行操作的歌词行
      * @return 替换完成后的歌词行
      */
-    private static @NotNull String matchCharacter(String x) throws IOException {
+    private static @NotNull String matchCharacter(String x, String type) throws IOException {
         int indexD = 0, indexS = 0;
+        List<String> tagSearch = null, tagMatch = null;
         jsonRomaji = "Romaji";
+        jsonHomophonic = "Homophonic";
         mainValue = "main";
         romajiValue = "Romaji";
+        HomoValue = "Homo";
         krKey = "KtoR";
-        List<String> kato = DataReading.mainJsonReading(jsonRomaji, krKey, mainValue);//将假名数据生成为列表
+        rhKey = "RtoH";
+        List<String> katoR = DataReading.mainJsonReading(jsonRomaji, krKey, mainValue);//将假名数据生成为列表
+        List<String> katoH = DataReading.mainJsonReading(jsonHomophonic, rhKey, mainValue);
         List<String> romaji = DataReading.mainJsonReading(jsonRomaji, krKey, romajiValue);//将罗马字数据生成为列表
+        List<String> homo = DataReading.mainJsonReading(jsonHomophonic, rhKey, HomoValue);
+
         StringBuilder sb = new StringBuilder(x);
+
+        if (type.equals("Romaji")){
+            tagMatch = katoR;
+            tagSearch = romaji;
+        }else if (type.equals("Homo")){
+            tagMatch = katoH;
+            tagSearch = homo;
+        }
 
         for (int subD = 0; subD < x.length() - 3; subD++){
             if (subD == x.length() - 3){
                 break;
             }
             doubleChara = x.substring(subD, subD + 2);
-            trueValue = charaLocReplace(doubleChara, kato, romaji);
+            trueValue = charaLocReplace(doubleChara, Objects.requireNonNull(tagMatch), tagSearch);
             sb.delete(indexD, indexD + 2);
             sb.insert(indexD, trueValue);
             if (trueValue.equals(doubleChara)){
@@ -88,7 +110,7 @@ public class FileOperation {
 
         for (int subS = 0; subS < x.length(); subS++){
             singleValue = x.substring(subS, subS + 1);
-            trueValue = charaLocReplace(singleValue, kato, romaji);
+            trueValue = charaLocReplace(singleValue, Objects.requireNonNull(tagMatch), tagSearch);
             sb.delete(indexS, indexS + 1);
             sb.insert(indexS, trueValue);
             if (trueValue.equals(doubleChara)){
@@ -117,39 +139,6 @@ public class FileOperation {
         return x;
     }
 
-    /**
-     * 获得谐音值
-     * 该方法接收一个字符将其转换为谐音形式
-     *
-     * @param x 罗马字字符
-     * @return 谐音
-     * @throws IOException ioexception
-     */
-    public static String getHomophonicValue(String x) throws IOException {
-
-        i = 0;
-        jsonHomophonic = "Homophonic";
-        HomoValue = "Homo";
-        mainValue = "main";
-        rhKey = "RtoH";
-        List<String> homophonic = DataReading.mainJsonReading(jsonHomophonic, rhKey, HomoValue);
-        List<String> main = DataReading.mainJsonReading(jsonHomophonic, rhKey, mainValue);
-
-        if (isJP(x)){
-            for (; i < (main.size() - 1); i++) {
-                if (x.equals(main.get(i))) {
-                    break;
-                } else {
-                    i++;
-                }
-            }
-            trueValue = homophonic.get(i) + " ";
-        }else {
-            trueValue = x;
-        }
-
-        return trueValue;
-    }
 
     /**
      * 是否为日文

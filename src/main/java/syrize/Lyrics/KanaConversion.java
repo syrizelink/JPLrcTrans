@@ -3,6 +3,7 @@ package syrize.Lyrics;
 
 import com.atilika.kuromoji.ipadic.Token;
 import com.atilika.kuromoji.ipadic.Tokenizer;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class KanaConversion {
      *
      * @param Lrc 输入的歌词List
      */
-    public static void literator(List<String> Lrc){
+    public static void literator(@NotNull List<String> Lrc){
 
         int size = Lrc.size();
         String x;

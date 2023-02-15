@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +30,7 @@ public class DataReading {
      * @return 返回一个选定Value集合的List
      * @throws IOException ioexception
      */
-    public static List<String> mainJsonReading(String JsonName, String KeyName, String ValueName) throws IOException {
+    public static @NotNull List<String> mainJsonReading(String JsonName, String KeyName, String ValueName) throws IOException {
         JsonName += ".json";
         try (InputStream inputStream = DataReading.class.getResourceAsStream("/" + JsonName)) {
             Gson gson = new Gson();
