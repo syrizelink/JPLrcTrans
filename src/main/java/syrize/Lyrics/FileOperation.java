@@ -3,7 +3,6 @@ package syrize.Lyrics;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,7 +35,7 @@ public class FileOperation {
      * @return 罗马字
      * @throws IOException ioexception
      */
-    public static List<String> getRomajiValue(@NotNull List<String> x) throws IOException {
+    protected static List<String> getRomajiValue(@NotNull List<String> x) throws IOException {
 
         for (int a = 0; a < x.size(); a++){
             x.set(a, matchCharacter(x.get(a), "Romaji"));
@@ -53,7 +52,7 @@ public class FileOperation {
      * @return 谐音
      * @throws IOException ioexception
      */
-    public static List<String> getHomophonicValue(@NotNull List<String> x) throws IOException {
+    protected static List<String> getHomophonicValue(@NotNull List<String> x) throws IOException {
 
         for (int a = 0; a < x.size(); a++){
             x.set(a, matchCharacter(x.get(a), "Homo"));
@@ -67,7 +66,7 @@ public class FileOperation {
      * @param x 要进行操作的歌词行
      * @return 替换完成后的歌词行
      */
-    private static @NotNull String matchCharacter(String x, String type) throws IOException {
+    private static String matchCharacter(String x, String type) throws IOException {
         int indexD = 0, indexS = 0;
         List<String> tagSearch = null, tagMatch = null;
         jsonRomaji = "Romaji";

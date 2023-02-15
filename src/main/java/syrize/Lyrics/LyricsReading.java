@@ -1,7 +1,5 @@
 package syrize.Lyrics;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -30,7 +28,7 @@ public class LyricsReading {
      * @return 歌词List
      * @throws IOException ioexception
      */
-    public static @NotNull List<String> lrcLine(String path) throws IOException {
+    private static List<String> lrcLine(String path) throws IOException {
         File lrc = new File(path);
         List<String> lineTraversal = new ArrayList<>();
 
@@ -68,7 +66,7 @@ public class LyricsReading {
      * @return {@link List}<{@link String}>
      * @throws IOException ioexception
      */
-    public static List<String> lrcTraversal(List<String> Lrc, String Type) throws IOException {
+    private static List<String> lrcTraversal(List<String> Lrc, String Type) throws IOException {
         List<String> replacementValue = null;
                 if (Objects.equals(Type, TYPE_R)) {
                     replacementValue = FileOperation.getRomajiValue(Lrc);
@@ -90,7 +88,7 @@ public class LyricsReading {
         String lrcPath = scan.nextLine();
         List<String> lrcLineStream = lrcLine(lrcPath);
         KanaConversion.literator(lrcLineStream);
-        List<String> Lrc = lrcTraversal(lrcLineStream, TYPE_H);
-        System.out.println(Lrc.get(15));
+        List<String> Lrc = lrcTraversal(lrcLineStream, TYPE_R);
+        System.out.println(Arrays.toString(Lrc.toArray()));
     }
 }

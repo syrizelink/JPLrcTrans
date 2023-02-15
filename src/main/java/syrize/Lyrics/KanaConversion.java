@@ -20,7 +20,7 @@ public class KanaConversion {
      *
      * @param Lrc 输入的歌词List
      */
-    public static void literator(@NotNull List<String> Lrc){
+    protected static void literator(@NotNull List<String> Lrc){
 
         int size = Lrc.size();
         String x;
