@@ -13,8 +13,7 @@ import java.util.regex.Pattern;
  * &#064;date  2023/02/01
  */
 public class LyricsReading {
-    static String TYPE_R = "Romaji";
-    static String TYPE_H = "Homo";
+    static String TYPE;
 
     static String regex = "\\[\\d{2}:\\d{2}\\.\\d{2}\\](?![\\u4e00-\\u9fa5|A-Za-z]+\\s*[.:：/／-]).*";
 
@@ -68,9 +67,9 @@ public class LyricsReading {
      */
     private static List<String> lrcTraversal(List<String> Lrc, String Type) throws IOException {
         List<String> replacementValue = null;
-                if (Objects.equals(Type, TYPE_R)) {
+                if (Objects.equals(Type, "Romaji")) {
                     replacementValue = FileOperation.getRomajiValue(Lrc);
-                } else if (Objects.equals(Type, TYPE_H)) {
+                } else if (Objects.equals(Type, "Homo")) {
                     replacementValue = FileOperation.getHomophonicValue(Lrc);
                 }
             return replacementValue;
@@ -86,9 +85,29 @@ public class LyricsReading {
         Scanner scan = new Scanner(System.in, StandardCharsets.UTF_8);
         System.out.println("输入文件绝对路径 或 拖放文件至此处");
         String lrcPath = scan.nextLine();
+
         List<String> lrcLineStream = lrcLine(lrcPath);
         KanaConversion.literator(lrcLineStream);
-        List<String> Lrc = lrcTraversal(lrcLineStream, TYPE_R);
+
+        char c;
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("请选择你要转换的类, 输入对应数字键以应用选择:");
+        System.out.println("1.  转为⌈罗马字⌋格式");
+        System.out.println("2.  转为⌈谐音⌋格式");
+        c = (char) bufferedReader.read();
+
+        while (c != '1' && c != '2'){
+            System.out.println("错误的选项, 请重新输入");
+            c = (char) bufferedReader.read();
+        }
+
+        if (c == '1') {
+            TYPE = "Romaji";
+        } else {
+            TYPE = "Homo";
+        }
+
+        List<String> Lrc = lrcTraversal(lrcLineStream, TYPE);
         DataWriting.writeFile(lrcPath, Lrc);
     }
 }
