@@ -89,6 +89,6 @@ public class LyricsReading {
         List<String> lrcLineStream = lrcLine(lrcPath);
         KanaConversion.literator(lrcLineStream);
         List<String> Lrc = lrcTraversal(lrcLineStream, TYPE_R);
-        System.out.println(Arrays.toString(Lrc.toArray()));
+        DataWriting.writeFile(lrcPath, Lrc);
     }
 }
