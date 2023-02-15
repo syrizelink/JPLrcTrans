@@ -20,6 +20,11 @@ public class DataWriting {
                 completeLyrics.add(line);
             }
         } catch (IOException e) {
+            try {
+                System.out.println("运行出错, 按任意键退出...");
+                System.in.read();
+            } catch (IOException ignored) {}
+            System.exit(1);
             throw new RuntimeException(e);
         }
 
@@ -54,8 +59,18 @@ public class DataWriting {
             copyFile = new File(file.getParentFile().getCanonicalPath() + File.separator + "New_" + file.getCanonicalFile().getName());
             if (!copyFile.createNewFile()) {
                 System.out.println("已存在同名文件, 无法创建, 请删除同名文件后重试");
+                try {
+                    System.out.println("运行出错, 按任意键退出...");
+                    System.in.read();
+                } catch (IOException ignored) {}
+                System.exit(1);
             }
         } catch (IOException e) {
+            try {
+                System.out.println("运行出错, 按任意键退出...");
+                System.in.read();
+            } catch (IOException ignored) {}
+            System.exit(1);
             throw new RuntimeException(e);
         }
         return copyFile;
@@ -72,6 +87,11 @@ public class DataWriting {
             }
             writer.flush();
         } catch (IOException e) {
+            try {
+                System.out.println("运行出错, 按任意键退出...");
+                System.in.read();
+            } catch (IOException ignored) {}
+            System.exit(1);
             throw new RuntimeException(e);
         }
     }

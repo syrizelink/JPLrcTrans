@@ -44,6 +44,11 @@ public class DataReading {
             }
             return list;
         } catch (JsonSyntaxException e) {
+            try {
+                System.out.println("运行出错, 按任意键退出...");
+                System.in.read();
+            } catch (IOException ignored) {}
+            System.exit(1);
             throw new RuntimeException(e);
         }
     }

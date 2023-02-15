@@ -46,6 +46,11 @@ public class LyricsReading {
                     }
                 }
             } catch (IOException e) {
+                try {
+                    System.out.println("运行出错, 按任意键退出...");
+                    System.in.read();
+                } catch (IOException ignored) {}
+                System.exit(1);
                 throw new RuntimeException(e);
             }finally {
                 if (reader != null){
@@ -86,11 +91,17 @@ public class LyricsReading {
         System.out.println("输入文件绝对路径 或 拖放文件至此处");
         String lrcPath = scan.nextLine();
 
-        List<String> lrcLineStream = lrcLine(lrcPath);
+        StringBuilder sb = new StringBuilder(lrcPath);
+        if (lrcPath.charAt(0) == '"' && lrcPath.charAt(lrcPath.length() - 1) == '\"'){
+            sb.delete(lrcPath.length() - 1, lrcPath.length());
+            sb.delete(0, 1);
+        }
+
+        List<String> lrcLineStream = lrcLine(sb.toString());
         KanaConversion.literator(lrcLineStream);
 
         char c;
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
         System.out.println("请选择你要转换的类, 输入对应数字键以应用选择:");
         System.out.println("1.  转为⌈罗马字⌋格式");
         System.out.println("2.  转为⌈谐音⌋格式");
@@ -108,6 +119,12 @@ public class LyricsReading {
         }
 
         List<String> Lrc = lrcTraversal(lrcLineStream, TYPE);
-        DataWriting.writeFile(lrcPath, Lrc);
+        DataWriting.writeFile(sb.toString(), Lrc);
+
+        try {
+            System.out.println("转换完成, 按任意键退出...");
+            System.in.read();
+        } catch (IOException ignored) {}
+        System.exit(1);
     }
 }
