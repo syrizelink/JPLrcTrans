@@ -64,12 +64,14 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.example.Main</mainClass>
+                            <mainClass>syrize.Lyrics.LyricsReading</mainClass>
                         </manifest>
                     </archive>
+
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+
                 </configuration>
                 <executions>
                     <execution>
