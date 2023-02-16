@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>syrize.Lyrics</groupId>
-    <artifactId>LyricsRomajiConversion</artifactId>
+    <artifactId>JPLrcTrans</artifactId>
     <version>1.0.2-Βeta</version>
 
     <properties>
