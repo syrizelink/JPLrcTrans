@@ -1,9 +1,10 @@
-package syrize.Lyrics;
+package syrize.Lyrics.DataOperation;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import syrize.Lyrics.Util.colorFont;
 
 import java.io.IOException;
 import java.io.InputStream;

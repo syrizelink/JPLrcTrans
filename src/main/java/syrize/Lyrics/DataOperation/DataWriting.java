@@ -1,4 +1,6 @@
-package syrize.Lyrics;
+package syrize.Lyrics.DataOperation;
+
+import syrize.Lyrics.Util.colorFont;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

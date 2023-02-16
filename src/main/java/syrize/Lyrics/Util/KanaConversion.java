@@ -1,4 +1,4 @@
-package syrize.Lyrics;
+package syrize.Lyrics.Util;
 
 
 import com.atilika.kuromoji.ipadic.Token;
@@ -20,7 +20,7 @@ public class KanaConversion {
      *
      * @param Lrc 输入的歌词List
      */
-    protected static void literator(@NotNull List<String> Lrc){
+    public static void literator(@NotNull List<String> Lrc){
 
         int size = Lrc.size();
         String x;

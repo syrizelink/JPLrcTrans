@@ -1,5 +1,10 @@
 package syrize.Lyrics;
 
+import syrize.Lyrics.DataOperation.DataWriting;
+import syrize.Lyrics.DataOperation.FileOperation;
+import syrize.Lyrics.Util.KanaConversion;
+import syrize.Lyrics.Util.colorFont;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -13,9 +18,8 @@ import java.util.regex.Pattern;
  * &#064;date  2023/02/01
  */
 public class LyricsReading {
-    static String TYPE;
 
-    static String regex = "\\[\\d{2}:\\d{2}\\.\\d{2}\\](?![\\u4e00-\\u9fa5|A-Za-z]+\\s*[.:：/／-]).*";
+    private static final String regex = "\\[\\d{2}:\\d{2}\\.\\d{2}\\](?![\\u4e00-\\u9fa5|A-Za-z]+\\s*[.:：/／-]).*";
 
     private static final Pattern PATTERN_LYRIC = Pattern.compile(regex);
 
@@ -80,7 +84,7 @@ public class LyricsReading {
             return replacementValue;
     }
 
-    public static void specialIdentify(){
+    private static void specialIdentify(){
         String version = LyricsReading.class.getPackage().getImplementationVersion();
         System.out.println(colorFont.RED + "Lyrics" + colorFont.GREEN + "Romaji" + colorFont.BLUE + "Conversion" + colorFont.RESET + " Ver." + colorFont.CYAN + version + colorFont.RESET);
     }
@@ -118,6 +122,7 @@ public class LyricsReading {
             c = (char) bufferedReader.read();
         }
 
+        String TYPE;
         if (c == '1') {
             TYPE = "Romaji";
         } else {

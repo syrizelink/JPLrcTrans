@@ -1,4 +1,4 @@
-package syrize.Lyrics;
+package syrize.Lyrics.Util;
 
 public class colorFont {
     public static final String RESET = "\033[0m";

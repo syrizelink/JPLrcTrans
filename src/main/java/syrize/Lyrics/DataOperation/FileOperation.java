@@ -1,4 +1,4 @@
-package syrize.Lyrics;
+package syrize.Lyrics.DataOperation;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +35,7 @@ public class FileOperation {
      * @return 罗马字
      * @throws IOException ioexception
      */
-    protected static List<String> getRomajiValue(@NotNull List<String> x) throws IOException {
+    public static List<String> getRomajiValue(@NotNull List<String> x) throws IOException {
 
         for (int a = 0; a < x.size(); a++){
             x.set(a, matchCharacter(x.get(a), "Romaji"));
@@ -52,7 +52,7 @@ public class FileOperation {
      * @return 谐音
      * @throws IOException ioexception
      */
-    protected static List<String> getHomophonicValue(@NotNull List<String> x) throws IOException {
+    public static List<String> getHomophonicValue(@NotNull List<String> x) throws IOException {
 
         for (int a = 0; a < x.size(); a++){
             x.set(a, matchCharacter(x.get(a), "Homo"));
