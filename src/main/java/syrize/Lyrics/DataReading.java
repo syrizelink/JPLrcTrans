@@ -45,7 +45,7 @@ public class DataReading {
             return list;
         } catch (JsonSyntaxException e) {
             try {
-                System.out.println("读取Json数据出错, 按任意键退出...");
+                System.out.println(colorFont.RED + "读取Json数据出错" + colorFont.RESET + ", 按任意键退出...");
                 System.in.read();
             } catch (IOException ignored) {}
             System.exit(1);

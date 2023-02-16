@@ -47,7 +47,7 @@ public class LyricsReading {
                 }
             } catch (IOException e) {
                 try {
-                    System.out.println("数据转换出错, 按任意键退出...");
+                    System.out.println(colorFont.RED + "数据转换时出错" + colorFont.RESET + ", 按任意键退出...");
                     System.in.read();
                 } catch (IOException ignored) {}
                 System.exit(1);
@@ -80,6 +80,11 @@ public class LyricsReading {
             return replacementValue;
     }
 
+    public static void specialIdentify(){
+        String version = LyricsReading.class.getPackage().getImplementationVersion();
+        System.out.println(colorFont.RED + "Lyrics" + colorFont.GREEN + "Romaji" + colorFont.BLUE + "Conversion" + colorFont.RESET + " Ver." + colorFont.CYAN + version + colorFont.RESET);
+    }
+
     /**
      * 主执行区
      *
@@ -87,6 +92,7 @@ public class LyricsReading {
      * @throws IOException ioexception
      */
     public static void main(String[] args) throws IOException {
+        specialIdentify();
         Scanner scan = new Scanner(System.in, "GBK");
         System.out.println("输入文件绝对路径 或 拖放文件至此处");
         String lrcPath = scan.nextLine();
@@ -103,12 +109,12 @@ public class LyricsReading {
         char c;
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
         System.out.println("请选择你要转换的类, 输入对应数字键以应用选择:");
-        System.out.println("1.  转为 罗马字 格式");
-        System.out.println("2.  转为 谐音 格式");
+        System.out.println(colorFont.GREEN + "1." + colorFont.RESET + "  转为 罗马字 格式");
+        System.out.println(colorFont.GREEN + "2." + colorFont.RESET + "  转为 谐音 格式");
         c = (char) bufferedReader.read();
 
         while (c != '1' && c != '2'){
-            System.out.println("错误的选项, 请重新输入");
+            System.out.println(colorFont.RED + "错误的选项" + colorFont.RESET + ", 请重新输入");
             c = (char) bufferedReader.read();
         }
 
@@ -122,7 +128,7 @@ public class LyricsReading {
         DataWriting.writeFile(sb.toString(), Lrc);
 
         try {
-            System.out.println("转换完成, 按任意键退出...");
+            System.out.println(colorFont.GREEN + "转换完成" + colorFont.RESET + ", 按任意键退出...");
             System.in.read();
         } catch (IOException ignored) {}
         System.exit(1);
