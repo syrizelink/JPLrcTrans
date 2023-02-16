@@ -47,7 +47,7 @@ public class LyricsReading {
                 }
             } catch (IOException e) {
                 try {
-                    System.out.println("运行出错, 按任意键退出...");
+                    System.out.println("数据转换出错, 按任意键退出...");
                     System.in.read();
                 } catch (IOException ignored) {}
                 System.exit(1);
@@ -87,7 +87,7 @@ public class LyricsReading {
      * @throws IOException ioexception
      */
     public static void main(String[] args) throws IOException {
-        Scanner scan = new Scanner(System.in, StandardCharsets.UTF_8);
+        Scanner scan = new Scanner(System.in, "GBK");
         System.out.println("输入文件绝对路径 或 拖放文件至此处");
         String lrcPath = scan.nextLine();
 
@@ -103,8 +103,8 @@ public class LyricsReading {
         char c;
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
         System.out.println("请选择你要转换的类, 输入对应数字键以应用选择:");
-        System.out.println("1.  转为⌈罗马字⌋格式");
-        System.out.println("2.  转为⌈谐音⌋格式");
+        System.out.println("1.  转为 罗马字 格式");
+        System.out.println("2.  转为 谐音 格式");
         c = (char) bufferedReader.read();
 
         while (c != '1' && c != '2'){

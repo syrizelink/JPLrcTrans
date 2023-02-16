@@ -21,7 +21,7 @@ public class DataWriting {
             }
         } catch (IOException e) {
             try {
-                System.out.println("运行出错, 按任意键退出...");
+                System.out.println("读取歌词出错, 按任意键退出...");
                 System.in.read();
             } catch (IOException ignored) {}
             System.exit(1);
@@ -60,14 +60,14 @@ public class DataWriting {
             if (!copyFile.createNewFile()) {
                 System.out.println("已存在同名文件, 无法创建, 请删除同名文件后重试");
                 try {
-                    System.out.println("运行出错, 按任意键退出...");
+                    System.out.println("按任意键退出...");
                     System.in.read();
                 } catch (IOException ignored) {}
                 System.exit(1);
             }
         } catch (IOException e) {
             try {
-                System.out.println("运行出错, 按任意键退出...");
+                System.out.println("创建文件出错, 按任意键退出...");
                 System.in.read();
             } catch (IOException ignored) {}
             System.exit(1);
@@ -88,7 +88,7 @@ public class DataWriting {
             writer.flush();
         } catch (IOException e) {
             try {
-                System.out.println("运行出错, 按任意键退出...");
+                System.out.println("写入文件出错, 按任意键退出...");
                 System.in.read();
             } catch (IOException ignored) {}
             System.exit(1);
