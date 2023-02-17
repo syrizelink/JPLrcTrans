@@ -1,7 +1,5 @@
 package syrize.Lyrics.DataOperation;
 
-import syrize.Lyrics.Util.colorFont;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -23,7 +21,7 @@ public class DataWriting {
             }
         } catch (IOException e) {
             try {
-                System.out.println(colorFont.RED + "读取歌词出错" + colorFont.RESET + ", 按任意键退出...");
+                System.out.println("读取歌词出错, 按任意键退出...");
                 System.in.read();
             } catch (IOException ignored) {}
             System.exit(1);
@@ -60,7 +58,7 @@ public class DataWriting {
             File file = new File(path);
             copyFile = new File(file.getParentFile().getCanonicalPath() + File.separator + "New_" + file.getCanonicalFile().getName());
             if (!copyFile.createNewFile()) {
-                System.out.println(colorFont.RED + "已存在同名文件" + colorFont.RESET + ", 无法创建, 请删除同名文件后重试");
+                System.out.println("已存在同名文件, 无法创建, 请删除同名文件后重试");
                 try {
                     System.out.println("按任意键退出...");
                     System.in.read();
@@ -69,7 +67,7 @@ public class DataWriting {
             }
         } catch (IOException e) {
             try {
-                System.out.println(colorFont.RED + "创建文件出错" + colorFont.RESET + ", 按任意键退出...");
+                System.out.println("创建文件出错, 按任意键退出...");
                 System.in.read();
             } catch (IOException ignored) {}
             System.exit(1);
@@ -90,7 +88,7 @@ public class DataWriting {
             writer.flush();
         } catch (IOException e) {
             try {
-                System.out.println(colorFont.RED + "写入文件出错" + colorFont.RESET + ", 按任意键退出...");
+                System.out.println("写入文件出错, 按任意键退出...");
                 System.in.read();
             } catch (IOException ignored) {}
             System.exit(1);

@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import syrize.Lyrics.Util.colorFont;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,7 +45,7 @@ public class DataReading {
             return list;
         } catch (JsonSyntaxException e) {
             try {
-                System.out.println(colorFont.RED + "读取Json数据出错" + colorFont.RESET + ", 按任意键退出...");
+                System.out.println("读取Json数据出错, 按任意键退出...");
                 System.in.read();
             } catch (IOException ignored) {}
             System.exit(1);
