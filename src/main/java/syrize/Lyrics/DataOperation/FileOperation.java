@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 
 /**
  * 文件操作
@@ -33,14 +34,11 @@ public class FileOperation {
      *
      * @param x 假名字符
      * @return 罗马字
-     * @throws IOException ioexception
      */
-    public static List<String> getRomajiValue(@NotNull List<String> x) throws IOException {
-
-        for (int a = 0; a < x.size(); a++){
-            x.set(a, matchCharacter(x.get(a), "Romaji"));
-        }
+    public static List<String> getRomajiValue(@NotNull List<String> x){
+        x.replaceAll(s -> matchCharacter(s, "Romaji"));
         return x;
+
     }
 
 
@@ -50,13 +48,9 @@ public class FileOperation {
      *
      * @param x 罗马字字符
      * @return 谐音
-     * @throws IOException ioexception
      */
-    public static List<String> getHomophonicValue(@NotNull List<String> x) throws IOException {
-
-        for (int a = 0; a < x.size(); a++){
-            x.set(a, matchCharacter(x.get(a), "Homo"));
-        }
+    public static List<String> getHomophonicValue(@NotNull List<String> x) {
+        x.replaceAll(s -> matchCharacter(s, "Homo"));
 
         return x;
     }
@@ -66,9 +60,9 @@ public class FileOperation {
      * @param x 要进行操作的歌词行
      * @return 替换完成后的歌词行
      */
-    private static String matchCharacter(String x, String type) throws IOException {
+    private static String matchCharacter(String x, String type){
         int indexD = 0, indexS = 0;
-        List<String> tagSearch = null, tagMatch = null;
+        List<String> tagSearch = null, tagMatch = null, katoR = null, katoH = null, romaji = null, homo = null;
         jsonRomaji = "Romaji";
         jsonHomophonic = "Homophonic";
         mainValue = "main";
@@ -76,10 +70,19 @@ public class FileOperation {
         HomoValue = "Homo";
         krKey = "KtoR";
         rhKey = "RtoH";
-        List<String> katoR = DataReading.mainJsonReading(jsonRomaji, krKey, mainValue);//将假名数据生成为列表
-        List<String> katoH = DataReading.mainJsonReading(jsonHomophonic, rhKey, mainValue);
-        List<String> romaji = DataReading.mainJsonReading(jsonRomaji, krKey, romajiValue);//将罗马字数据生成为列表
-        List<String> homo = DataReading.mainJsonReading(jsonHomophonic, rhKey, HomoValue);
+        try {
+            katoR = DataReading.mainJsonReading(jsonRomaji, krKey, mainValue);//将假名数据生成为列表
+            katoH = DataReading.mainJsonReading(jsonHomophonic, rhKey, mainValue);
+            romaji = DataReading.mainJsonReading(jsonRomaji, krKey, romajiValue);//将罗马字数据生成为列表
+            homo = DataReading.mainJsonReading(jsonHomophonic, rhKey, HomoValue);
+        } catch (IOException e) {
+            System.out.println("[!]转换罗马字/谐音数据出错: ");
+            System.out.println(e.getMessage());
+            System.out.println("按任意键退出程序...");
+            new Scanner(System.in).nextLine();
+            System.exit(1);
+        }
+
 
         StringBuilder sb = new StringBuilder(x);
 

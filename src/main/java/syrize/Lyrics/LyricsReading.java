@@ -49,12 +49,11 @@ public class LyricsReading {
                     }
                 }
             } catch (IOException e) {
-                try {
-                    System.out.println("数据转换时出错, 按任意键退出...");
-                    System.in.read();
-                } catch (IOException ignored) {}
+                System.out.println("[!]转储歌词出错: ");
+                System.out.println(e.getMessage());
+                System.out.println("按任意键退出程序...");
+                new Scanner(System.in).nextLine();
                 System.exit(1);
-                throw new RuntimeException(e);
             }finally {
                 if (reader != null){
                     reader.close();
@@ -71,26 +70,27 @@ public class LyricsReading {
      * @param Lrc  歌词List
      * @param Type 需要转换成的形式名
      * @return {@link List}<{@link String}>
-     * @throws IOException ioexception
      */
-    private static List<String> lrcTraversal(List<String> Lrc, String Type) throws IOException {
+    private static List<String> lrcTraversal(List<String> Lrc, String Type){
         List<String> replacementValue = null;
-                if (Objects.equals(Type, "Romaji")) {
-                    replacementValue = FileOperation.getRomajiValue(Lrc);
-                } else if (Objects.equals(Type, "Homo")) {
-                    replacementValue = FileOperation.getHomophonicValue(Lrc);
-                }
-            return replacementValue;
+        if (Objects.equals(Type, "Romaji")) {
+            replacementValue = FileOperation.getRomajiValue(Lrc);
+        } else if (Objects.equals(Type, "Homo")) {
+            replacementValue = FileOperation.getHomophonicValue(Lrc);
+        }
+        return replacementValue;
     }
 
     private static void specialIdentify(){
-        System.out.println("\n" +
-                "     ██╗██████╗     ██╗     ██████╗  ██████╗████████╗██████╗  █████╗ ███╗   ██╗███████╗\n" +
-                "     ██║██╔══██╗    ██║     ██╔══██╗██╔════╝╚══██╔══╝██╔══██╗██╔══██╗████╗  ██║██╔════╝\n" +
-                "     ██║██████╔╝    ██║     ██████╔╝██║        ██║   ██████╔╝███████║██╔██╗ ██║███████╗\n" +
-                "██   ██║██╔═══╝     ██║     ██╔══██╗██║        ██║   ██╔══██╗██╔══██║██║╚██╗██║╚════██║\n" +
-                "╚█████╔╝██║         ███████╗██║  ██║╚██████╗   ██║   ██║  ██║██║  ██║██║ ╚████║███████║\n" +
-                " ╚════╝ ╚═╝         ╚══════╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝\n");
+        System.out.println("""
+
+                     ██╗██████╗     ██╗     ██████╗  ██████╗████████╗██████╗  █████╗ ███╗   ██╗███████╗
+                     ██║██╔══██╗    ██║     ██╔══██╗██╔════╝╚══██╔══╝██╔══██╗██╔══██╗████╗  ██║██╔════╝
+                     ██║██████╔╝    ██║     ██████╔╝██║        ██║   ██████╔╝███████║██╔██╗ ██║███████╗
+                ██   ██║██╔═══╝     ██║     ██╔══██╗██║        ██║   ██╔══██╗██╔══██║██║╚██╗██║╚════██║
+                ╚█████╔╝██║         ███████╗██║  ██║╚██████╗   ██║   ██║  ██║██║  ██║██║ ╚████║███████║
+                 ╚════╝ ╚═╝         ╚══════╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝
+                """);
         System.out.println("LyricsRomajiConversion Ver.1.0.3-Beta  By Syrize");
         System.out.println("感谢您的支持, 欢迎来Github点点Star哦");
         System.out.println(" ");
@@ -104,21 +104,22 @@ public class LyricsReading {
      */
     public static void main(String[] args) throws IOException {
         specialIdentify();
-        Scanner scan = new Scanner(System.in, StandardCharsets.UTF_8);
+        Scanner scan = new Scanner(System.in, "GBK");
         System.out.println("输入歌词文件绝对路径 或 拖放至此处");
         String lrcPath = scan.nextLine();
-
-        File file = new File(lrcPath);
-        if (!file.getName().substring(file.getName().lastIndexOf('.') + 1).equals("lrc")){
-            System.out.println("输入文件非Lrc格式, 本程序仅转换Lrc格式的歌词文件, 按任意键退出...");
-            System.in.read();
-            System.exit(1);
-        }
 
         StringBuilder sb = new StringBuilder(lrcPath);
         if (lrcPath.charAt(0) == '"' && lrcPath.charAt(lrcPath.length() - 1) == '\"'){
             sb.delete(lrcPath.length() - 1, lrcPath.length());
             sb.delete(0, 1);
+        }
+
+        File file = new File(sb.toString());
+
+        if (!file.getName().substring(file.getName().lastIndexOf('.') + 1).equals("lrc")){
+            System.out.println("[!]输入文件非Lrc格式, 本程序仅转换Lrc格式的歌词文件, 按任意键退出...");
+            System.in.read();
+            System.exit(1);
         }
 
         List<String> lrcLineStream = lrcLine(sb.toString());
@@ -127,12 +128,12 @@ public class LyricsReading {
         char c;
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
         System.out.println("请选择你要转换的类型, 输入对应数字键以应用选择:");
-        System.out.println("1.  转为 罗马字 格式");
-        System.out.println("2.  转为 谐音 格式");
+        System.out.println(">>1.  转为 罗马字 格式");
+        System.out.println(">>2.  转为 谐音 格式");
         c = (char) bufferedReader.read();
 
         while (c != '1' && c != '2'){
-            System.out.println("错误的选项, 请重新输入");
+            System.out.println("[!]错误的选项, 请重新输入");
             c = (char) bufferedReader.read();
         }
 
@@ -146,10 +147,8 @@ public class LyricsReading {
         List<String> Lrc = lrcTraversal(lrcLineStream, TYPE);
         DataWriting.writeFile(sb.toString(), Lrc);
 
-        try {
-            System.out.println("转换完成, 按任意键退出...");
-            System.in.read();
-        } catch (IOException ignored) {}
+        System.out.println("转换完成, 按任意键退出...");
+        new Scanner(System.in).nextLine();
         System.exit(1);
     }
 }

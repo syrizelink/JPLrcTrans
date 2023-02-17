@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 
 /**
  * 数据读取
@@ -31,9 +32,10 @@ public class DataReading {
      */
     protected static List<String> mainJsonReading(String JsonName, String KeyName, String ValueName) throws IOException {
         JsonName += ".json";
+        List<String> list = null;
         try (InputStream inputStream = DataReading.class.getResourceAsStream("/" + JsonName)) {
             Gson gson = new Gson();
-            List<String> list = new ArrayList<>();
+            list = new ArrayList<>();
             JsonObject jsonObject = gson.fromJson(new InputStreamReader(Objects.requireNonNull(inputStream), StandardCharsets.UTF_8), JsonObject.class);
             JsonArray array = jsonObject.get(KeyName).getAsJsonArray();
 
@@ -42,14 +44,13 @@ public class DataReading {
                 String mainValue = item.get(ValueName).getAsString();
                 list.add(mainValue);
             }
-            return list;
         } catch (JsonSyntaxException e) {
-            try {
-                System.out.println("读取Json数据出错, 按任意键退出...");
-                System.in.read();
-            } catch (IOException ignored) {}
+            System.out.println("[!]读取Json文件出错: ");
+            System.out.println(e.getMessage());
+            System.out.println("按任意键退出程序...");
+            new Scanner(System.in).nextLine();
             System.exit(1);
-            throw new RuntimeException(e);
         }
+        return list;
     }
 }

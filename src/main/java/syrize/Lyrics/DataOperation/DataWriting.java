@@ -20,12 +20,11 @@ public class DataWriting {
                 completeLyrics.add(line);
             }
         } catch (IOException e) {
-            try {
-                System.out.println("读取歌词出错, 按任意键退出...");
-                System.in.read();
-            } catch (IOException ignored) {}
+            System.out.println("[!]建立列表时出错: ");
+            System.out.println(e.getMessage());
+            System.out.println("按任意键退出程序...");
+            new Scanner(System.in).nextLine();
             System.exit(1);
-            throw new RuntimeException(e);
         }
 
         return completeLyrics;
@@ -53,25 +52,22 @@ public class DataWriting {
      * @param path 源文件路径
      */
     private static File createFile(String path) {
-        File copyFile;
+        File copyFile = null;
         try {
             File file = new File(path);
             copyFile = new File(file.getParentFile().getCanonicalPath() + File.separator + "New_" + file.getCanonicalFile().getName());
             if (!copyFile.createNewFile()) {
-                System.out.println("已存在同名文件, 无法创建, 请删除同名文件后重试");
-                try {
-                    System.out.println("按任意键退出...");
-                    System.in.read();
-                } catch (IOException ignored) {}
+                System.out.println("[!]已存在同名文件, 无法创建, 请删除同名文件后重试");
+                System.out.println("按任意键退出...");
+                new Scanner(System.in).nextLine();
                 System.exit(1);
             }
         } catch (IOException e) {
-            try {
-                System.out.println("创建文件出错, 按任意键退出...");
-                System.in.read();
-            } catch (IOException ignored) {}
+            System.out.println("[!]创建文件出错: ");
+            System.out.println(e.getMessage());
+            System.out.println("按任意键退出程序...");
+            new Scanner(System.in).nextLine();
             System.exit(1);
-            throw new RuntimeException(e);
         }
         return copyFile;
     }
@@ -87,12 +83,11 @@ public class DataWriting {
             }
             writer.flush();
         } catch (IOException e) {
-            try {
-                System.out.println("写入文件出错, 按任意键退出...");
-                System.in.read();
-            } catch (IOException ignored) {}
+            System.out.println("[!]写入文件出错: ");
+            System.out.println(e.getMessage());
+            System.out.println("按任意键退出程序...");
+            new Scanner(System.in).nextLine();
             System.exit(1);
-            throw new RuntimeException(e);
         }
     }
 
