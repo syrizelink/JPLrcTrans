@@ -176,7 +176,7 @@
     {"Homo": "哦" , "main": "オ"},
     {"Homo": " " , "main": "っ"},
     {"Homo": " " , "main": "ッ"},
-    {"Homo": "ー" , "main": "ー"},
-    {"Homo": "ー" , "main": "ー"}
+    {"Homo": " " , "main": "ー"},
+    {"Homo": " " , "main": "ー"}
   ]
 }

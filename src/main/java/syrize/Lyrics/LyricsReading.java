@@ -91,7 +91,7 @@ public class LyricsReading {
                 ╚█████╔╝██║         ███████╗██║  ██║╚██████╗   ██║   ██║  ██║██║  ██║██║ ╚████║███████║
                  ╚════╝ ╚═╝         ╚══════╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝
                 """);
-        System.out.println("LyricsRomajiConversion Ver.1.0.3-Beta  By Syrize");
+        System.out.println("JPLrcTrans Ver.1.0.4-RC  By Syrize");
         System.out.println("感谢您的支持, 欢迎来Github点点Star哦");
         System.out.println(" ");
     }
