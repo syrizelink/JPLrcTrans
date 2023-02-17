@@ -6,7 +6,7 @@
 
     <groupId>syrize.Lyrics</groupId>
     <artifactId>JPLrcTrans</artifactId>
-    <version>1.0.3-Βeta</version>
+    <version>1.0.4-RC</version>
     <packaging>jar</packaging>
 
     <properties>
