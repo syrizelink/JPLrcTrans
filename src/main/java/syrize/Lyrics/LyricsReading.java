@@ -90,8 +90,7 @@ public class LyricsReading {
                 "     ██║██████╔╝    ██║     ██████╔╝██║        ██║   ██████╔╝███████║██╔██╗ ██║███████╗\n" +
                 "██   ██║██╔═══╝     ██║     ██╔══██╗██║        ██║   ██╔══██╗██╔══██║██║╚██╗██║╚════██║\n" +
                 "╚█████╔╝██║         ███████╗██║  ██║╚██████╗   ██║   ██║  ██║██║  ██║██║ ╚████║███████║\n" +
-                " ╚════╝ ╚═╝         ╚══════╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝\n" +
-                "                                                                                       \n");
+                " ╚════╝ ╚═╝         ╚══════╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝\n");
         System.out.println("LyricsRomajiConversion Ver.1.0.3-Beta  By Syrize");
         System.out.println("感谢您的支持, 欢迎来Github点点Star哦");
         System.out.println(" ");
@@ -127,7 +126,7 @@ public class LyricsReading {
 
         char c;
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
-        System.out.println("请选择你要转换的类, 输入对应数字键以应用选择:");
+        System.out.println("请选择你要转换的类型, 输入对应数字键以应用选择:");
         System.out.println("1.  转为 罗马字 格式");
         System.out.println("2.  转为 谐音 格式");
         c = (char) bufferedReader.read();

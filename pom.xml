@@ -57,6 +57,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
+                    <finalName>${project.artifactId}-${project.version}</finalName>
                     <archive>
                         <manifest>
                             <mainClass>syrize.Lyrics.LyricsReading</mainClass>
