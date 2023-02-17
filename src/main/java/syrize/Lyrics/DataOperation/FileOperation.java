@@ -23,7 +23,7 @@ public class FileOperation {
             HomoValue,
             rhKey,
             singleValue,
-            doubleChara,
+            doubleValue,
             trueValue;
     static int
             i;
@@ -38,7 +38,6 @@ public class FileOperation {
     public static List<String> getRomajiValue(@NotNull List<String> x){
         x.replaceAll(s -> matchCharacter(s, "Romaji"));
         return x;
-
     }
 
 
@@ -98,24 +97,25 @@ public class FileOperation {
             if (subD == x.length() - 3){
                 break;
             }
-            doubleChara = x.substring(subD, subD + 2);
-            trueValue = charaLocReplace(doubleChara, Objects.requireNonNull(tagMatch), tagSearch);
+            doubleValue = x.substring(subD, subD + 2);
+            trueValue = charaLocReplace(doubleValue, Objects.requireNonNull(tagMatch), tagSearch);
             sb.delete(indexD, indexD + 2);
             sb.insert(indexD, trueValue);
-            if (trueValue.equals(doubleChara)){
+            if (trueValue.equals(doubleValue)){
                 indexD += 1;
             }else {
                 indexD += trueValue.length();
             }
         }
 
+        String medianValue = sb.toString();
 
-        for (int subS = 0; subS < x.length(); subS++){
-            singleValue = x.substring(subS, subS + 1);
+        for (int subS = 0; subS < medianValue.length(); subS++){
+            singleValue = medianValue.substring(subS, subS + 1);
             trueValue = charaLocReplace(singleValue, Objects.requireNonNull(tagMatch), tagSearch);
             sb.delete(indexS, indexS + 1);
             sb.insert(indexS, trueValue);
-            if (trueValue.equals(doubleChara)){
+            if (trueValue.equals(singleValue)){
                 indexS += 1;
             }else {
                 indexS += trueValue.length();
@@ -140,18 +140,4 @@ public class FileOperation {
         }
         return x;
     }
-
-
-    /**
-     * 是否为日文
-     * 该方法用于判断字符串是否为日文字符
-     *
-     * @param x 需要判断的字符串
-     * @return 布尔值
-     */
-    public static boolean isJP(@NotNull String x) {
-        Character.UnicodeScript script = Character.UnicodeScript.of(x.charAt(0));
-        return script == Character.UnicodeScript.HIRAGANA || script == Character.UnicodeScript.KATAKANA || script == Character.UnicodeScript.HAN;
-    }
-
 }

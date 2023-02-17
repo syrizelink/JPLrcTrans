@@ -104,7 +104,7 @@ public class LyricsReading {
      */
     public static void main(String[] args) throws IOException {
         specialIdentify();
-        Scanner scan = new Scanner(System.in, "GBK");
+        Scanner scan = new Scanner(System.in, "UTF-8");
         System.out.println("输入歌词文件绝对路径 或 拖放至此处");
         String lrcPath = scan.nextLine();
 
