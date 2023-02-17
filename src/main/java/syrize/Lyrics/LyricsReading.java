@@ -84,8 +84,15 @@ public class LyricsReading {
     }
 
     private static void specialIdentify(){
-        String version = LyricsReading.class.getPackage().getImplementationVersion();
-        System.out.println("LyricsRomajiConversion Ver." + version);
+        System.out.println("\n" +
+                "     ██╗██████╗     ██╗     ██████╗  ██████╗████████╗██████╗  █████╗ ███╗   ██╗███████╗\n" +
+                "     ██║██╔══██╗    ██║     ██╔══██╗██╔════╝╚══██╔══╝██╔══██╗██╔══██╗████╗  ██║██╔════╝\n" +
+                "     ██║██████╔╝    ██║     ██████╔╝██║        ██║   ██████╔╝███████║██╔██╗ ██║███████╗\n" +
+                "██   ██║██╔═══╝     ██║     ██╔══██╗██║        ██║   ██╔══██╗██╔══██║██║╚██╗██║╚════██║\n" +
+                "╚█████╔╝██║         ███████╗██║  ██║╚██████╗   ██║   ██║  ██║██║  ██║██║ ╚████║███████║\n" +
+                " ╚════╝ ╚═╝         ╚══════╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝\n" +
+                "                                                                                       \n");
+        System.out.println("LyricsRomajiConversion Ver.1.0.3-Beta  By Syrize");
         System.out.println("感谢您的支持, 欢迎来Github点点Star哦");
         System.out.println(" ");
     }
@@ -98,9 +105,16 @@ public class LyricsReading {
      */
     public static void main(String[] args) throws IOException {
         specialIdentify();
-        Scanner scan = new Scanner(System.in, "GBK");
-        System.out.println("输入文件绝对路径 或 拖放文件至此处");
+        Scanner scan = new Scanner(System.in, StandardCharsets.UTF_8);
+        System.out.println("输入歌词文件绝对路径 或 拖放至此处");
         String lrcPath = scan.nextLine();
+
+        File file = new File(lrcPath);
+        if (!file.getName().substring(file.getName().lastIndexOf('.') + 1).equals("lrc")){
+            System.out.println("输入文件非Lrc格式, 本程序仅转换Lrc格式的歌词文件, 按任意键退出...");
+            System.in.read();
+            System.exit(1);
+        }
 
         StringBuilder sb = new StringBuilder(lrcPath);
         if (lrcPath.charAt(0) == '"' && lrcPath.charAt(lrcPath.length() - 1) == '\"'){
